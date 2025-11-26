@@ -36,7 +36,11 @@ from open_webui.env import SRC_LOG_LEVELS, STATIC_DIR
 
 
 from open_webui.utils.auth import get_admin_user, get_password_hash, get_verified_user
-from open_webui.utils.access_control import get_permissions, has_permission
+from open_webui.utils.access_control import (
+    get_default_permissions_for_role,
+    get_permissions,
+    has_permission,
+)
 
 
 log = logging.getLogger(__name__)
@@ -135,9 +139,10 @@ async def get_user_groups(user=Depends(get_verified_user)):
 
 @router.get("/permissions")
 async def get_user_permissisions(request: Request, user=Depends(get_verified_user)):
-    user_permissions = get_permissions(
-        user.id, request.app.state.config.USER_PERMISSIONS
+    default_permissions = get_default_permissions_for_role(
+        user.role, request.app.state.config
     )
+    user_permissions = get_permissions(user.id, default_permissions)
 
     return user_permissions
 
