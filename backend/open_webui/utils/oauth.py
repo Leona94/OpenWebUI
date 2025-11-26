@@ -70,6 +70,7 @@ from open_webui.env import (
 from open_webui.utils.misc import parse_duration
 from open_webui.utils.auth import get_password_hash, create_token
 from open_webui.utils.webhook import post_webhook
+from open_webui.utils.access_control import get_default_permissions_for_role
 
 from mcp.shared.auth import (
     OAuthClientMetadata,
@@ -1424,7 +1425,9 @@ class OAuthManager:
                 self.update_user_groups(
                     user=user,
                     user_data=user_data,
-                    default_permissions=request.app.state.config.USER_PERMISSIONS,
+                    default_permissions=get_default_permissions_for_role(
+                        user.role, request.app.state.config
+                    ),
                 )
 
         except Exception as e:
