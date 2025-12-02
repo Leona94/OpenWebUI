@@ -34,6 +34,9 @@ from open_webui.env import (
 )
 from open_webui.internal.db import Base, get_db
 from open_webui.utils.redis import get_redis_connection
+from open_webui.permissions_group_owner import (
+    GROUP_OWNER_PERMISSIONS as GROUP_OWNER_PERMISSIONS_BASE,
+)
 
 
 class EndpointFilter(logging.Filter):
@@ -1410,6 +1413,12 @@ DEFAULT_USER_PERMISSIONS = {
         "notes": USER_PERMISSIONS_FEATURES_NOTES,
     },
 }
+
+GROUP_OWNER_PERMISSIONS = PersistentConfig(
+    "GROUP_OWNER_PERMISSIONS",
+    "user.group_owner_permissions",
+    GROUP_OWNER_PERMISSIONS_BASE,
+)
 
 USER_PERMISSIONS = PersistentConfig(
     "USER_PERMISSIONS",

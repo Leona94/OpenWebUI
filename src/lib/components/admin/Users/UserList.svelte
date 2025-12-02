@@ -351,12 +351,20 @@
 									showEditUserModal = !showEditUserModal;
 								}}
 							>
-								<Badge
-									type={user.role === 'admin' ? 'info' : user.role === 'user' ? 'success' : 'muted'}
-									content={$i18n.t(user.role)}
-								/>
-							</button>
-						</td>
+                                                                <Badge
+                                                                        type={
+                                                                                user.role === 'admin'
+                                                                                        ? 'info'
+                                                                                        : user.role === 'user'
+                                                                                                ? 'success'
+                                                                                                : user.role === 'group_owner'
+                                                                                                        ? 'warning'
+                                                                                                        : 'muted'
+                                                                        }
+                                                                        content={$i18n.t(user.role)}
+                                                                />
+                                                        </button>
+                                                </td>
 						<td class="px-3 py-1 font-medium text-gray-900 dark:text-white max-w-48">
 							<div class="flex items-center">
 								<img
