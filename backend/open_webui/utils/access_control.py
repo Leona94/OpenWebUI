@@ -7,6 +7,18 @@ from open_webui.config import DEFAULT_USER_PERMISSIONS
 import json
 
 
+def get_default_permissions_for_role(role: str, config) -> Dict[str, Any]:
+    role_defaults = {
+        "group_owner": getattr(
+            config, "GROUP_OWNER_PERMISSIONS", DEFAULT_USER_PERMISSIONS
+        )
+    }
+
+    return role_defaults.get(
+        role, getattr(config, "USER_PERMISSIONS", DEFAULT_USER_PERMISSIONS)
+    )
+
+
 def fill_missing_permissions(
     permissions: Dict[str, Any], default_permissions: Dict[str, Any]
 ) -> Dict[str, Any]:

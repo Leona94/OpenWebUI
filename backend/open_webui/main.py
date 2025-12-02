@@ -364,6 +364,7 @@ from open_webui.config import (
     ENABLE_USER_WEBHOOKS,
     ENABLE_EVALUATION_ARENA_MODELS,
     BYPASS_ADMIN_ACCESS_CONTROL,
+    GROUP_OWNER_PERMISSIONS,
     USER_PERMISSIONS,
     DEFAULT_USER_ROLE,
     PENDING_USER_OVERLAY_CONTENT,
@@ -758,6 +759,7 @@ app.state.config.PENDING_USER_OVERLAY_TITLE = PENDING_USER_OVERLAY_TITLE
 
 app.state.config.RESPONSE_WATERMARK = RESPONSE_WATERMARK
 
+app.state.config.GROUP_OWNER_PERMISSIONS = GROUP_OWNER_PERMISSIONS
 app.state.config.USER_PERMISSIONS = USER_PERMISSIONS
 app.state.config.WEBHOOK_URL = WEBHOOK_URL
 app.state.config.BANNERS = WEBUI_BANNERS
@@ -1869,7 +1871,7 @@ async def get_app_config(request: Request):
                     else {}
                 ),
             }
-            if user is not None and (user.role in ["admin", "user"])
+            if user is not None and (user.role in ["admin", "user", "group_owner"])
             else {
                 **(
                     {
