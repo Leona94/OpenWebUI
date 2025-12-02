@@ -21,7 +21,13 @@
 	let tab = '';
 	let inputFiles;
 
-        const ROLE_OPTIONS = ['pending', 'user', 'group_owner', 'admin'];
+        const ROLE_OPTIONS = [
+                { value: 'pending', labelKey: 'Pending' },
+                { value: 'user', labelKey: 'User' },
+                { value: 'group_owner', labelKey: 'group_owner' },
+                { value: 'admin', labelKey: 'Admin' }
+        ];
+        const ROLE_VALUES = ROLE_OPTIONS.map(({ value }) => value);
 
         let _user = {
                 name: '',
@@ -81,16 +87,10 @@
 						console.debug(idx, columns);
 
 						if (idx > 0) {
-                                                        if (
-                                                                columns.length === 4 &&
-                                                                ROLE_OPTIONS.includes(columns[3].toLowerCase())
-                                                        ) {
-							if (
-                                columns.length === 4 &&
-                                ['admin', 'user', 'group_owner', 'pending'].includes(
-                                        columns[3].toLowerCase()
-                                )
-							) {
+                                                          if (
+                                                                  columns.length === 4 &&
+                                                                  ROLE_VALUES.includes(columns[3].toLowerCase())
+                                                          ) {
 								const res = await addUser(
 									localStorage.token,
 									columns[0],
@@ -193,9 +193,9 @@
                                                                                 placeholder={$i18n.t('Enter Your Role')}
                                                                                 required
                                                                         >
-                                                                                {#each ROLE_OPTIONS as roleOption}
-                                                                                        <option value={roleOption}>
-                                                                                                {$i18n.t(roleOption)}
+                                                                                {#each ROLE_OPTIONS as { value, labelKey }}
+                                                                                        <option value={value}>
+                                                                                                {$i18n.t(labelKey)}
                                                                                         </option>
                                                                                 {/each}
                                                                         </select>
