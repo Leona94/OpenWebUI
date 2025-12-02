@@ -143,12 +143,13 @@
 												disabled={_user.id == sessionUser.id}
 												required
 											>
-												<option value="admin">{$i18n.t('Admin')}</option>
-												<option value="user">{$i18n.t('User')}</option>
-												<option value="pending">{$i18n.t('Pending')}</option>
-											</select>
-										</div>
-									</div>
+                                                                                                <option value="admin">{$i18n.t('Admin')}</option>
+                                                                                                <option value="user">{$i18n.t('User')}</option>
+                                                                                                <option value="group_owner">{$i18n.t('group_owner')}</option>
+                                                                                                <option value="pending">{$i18n.t('Pending')}</option>
+                                                                                       </select>
+                                                                               </div>
+                                                                       </div>
 
 									<div class="flex flex-col w-full">
 										<div class=" mb-1 text-xs text-gray-500">{$i18n.t('Name')}</div>

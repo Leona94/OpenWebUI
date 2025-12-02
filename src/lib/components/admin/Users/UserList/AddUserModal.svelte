@@ -43,8 +43,8 @@
 			loading = false;
 		};
 
-		if (tab === '') {
-			loading = true;
+                if (tab === '') {
+                        loading = true;
 
 			const res = await addUser(
 				localStorage.token,
@@ -80,8 +80,10 @@
 
 						if (idx > 0) {
 							if (
-								columns.length === 4 &&
-								['admin', 'user', 'pending'].includes(columns[3].toLowerCase())
+                                columns.length === 4 &&
+                                ['admin', 'user', 'group_owner', 'pending'].includes(
+                                        columns[3].toLowerCase()
+                                )
 							) {
 								const res = await addUser(
 									localStorage.token,
@@ -185,12 +187,13 @@
 										placeholder={$i18n.t('Enter Your Role')}
 										required
 									>
-										<option value="pending"> {$i18n.t('pending')} </option>
-										<option value="user"> {$i18n.t('user')} </option>
-										<option value="admin"> {$i18n.t('admin')} </option>
-									</select>
-								</div>
-							</div>
+                                                                                <option value="pending"> {$i18n.t('pending')} </option>
+                                                                                <option value="user"> {$i18n.t('user')} </option>
+                                                                                <option value="group_owner"> {$i18n.t('group_owner')} </option>
+                                                                                <option value="admin"> {$i18n.t('admin')} </option>
+                                                                        </select>
+                                                                </div>
+                                                        </div>
 
 							<div class="flex flex-col w-full mt-1">
 								<div class=" mb-1 text-xs text-gray-500">{$i18n.t('Name')}</div>

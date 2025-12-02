@@ -292,12 +292,13 @@
 								bind:value={adminConfig.DEFAULT_USER_ROLE}
 								placeholder={$i18n.t('Select a role')}
 							>
-								<option value="pending">{$i18n.t('pending')}</option>
-								<option value="user">{$i18n.t('user')}</option>
-								<option value="admin">{$i18n.t('admin')}</option>
-							</select>
-						</div>
-					</div>
+                                                                <option value="pending">{$i18n.t('pending')}</option>
+                                                                <option value="user">{$i18n.t('user')}</option>
+                                                                <option value="group_owner">{$i18n.t('group_owner')}</option>
+                                                                <option value="admin">{$i18n.t('admin')}</option>
+                                                       </select>
+                                               </div>
+                                       </div>
 
 					<div class=" mb-2.5 flex w-full justify-between pr-2">
 						<div class=" self-center text-xs font-medium">{$i18n.t('Enable New Sign Ups')}</div>
