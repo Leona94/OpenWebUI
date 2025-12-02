@@ -150,9 +150,9 @@
 			await goto('/auth');
 			return;
 		}
-		if (!['user', 'admin'].includes($user?.role)) {
-			return;
-		}
+                if (!['user', 'admin', 'group_owner'].includes($user?.role)) {
+                        return;
+                }
 
 		clearChatInputStorage();
 		await Promise.all([
@@ -322,9 +322,9 @@
 		<div
 			class=" text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-900 h-screen max-h-[100dvh] overflow-auto flex flex-row justify-end"
 		>
-			{#if !['user', 'admin'].includes($user?.role)}
-				<AccountPending />
-			{:else}
+                        {#if !['user', 'admin', 'group_owner'].includes($user?.role)}
+                                <AccountPending />
+                        {:else}
 				{#if localDBChats.length > 0}
 					<div class="fixed w-full h-full flex z-50">
 						<div
