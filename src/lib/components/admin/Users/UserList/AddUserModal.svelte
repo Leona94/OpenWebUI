@@ -85,6 +85,12 @@
                                                                 columns.length === 4 &&
                                                                 ROLE_OPTIONS.includes(columns[3].toLowerCase())
                                                         ) {
+							if (
+                                columns.length === 4 &&
+                                ['admin', 'user', 'group_owner', 'pending'].includes(
+                                        columns[3].toLowerCase()
+                                )
+							) {
 								const res = await addUser(
 									localStorage.token,
 									columns[0],
@@ -192,6 +198,16 @@
                                                                                                 {$i18n.t(roleOption)}
                                                                                         </option>
                                                                                 {/each}
+									<select
+										class="w-full capitalize rounded-lg text-sm bg-transparent dark:disabled:text-gray-500 outline-hidden"
+										bind:value={_user.role}
+										placeholder={$i18n.t('Enter Your Role')}
+										required
+									>
+                                                                                <option value="pending"> {$i18n.t('pending')} </option>
+                                                                                <option value="user"> {$i18n.t('user')} </option>
+                                                                                <option value="group_owner"> {$i18n.t('group_owner')} </option>
+                                                                                <option value="admin"> {$i18n.t('admin')} </option>
                                                                         </select>
                                                                 </div>
                                                         </div>
