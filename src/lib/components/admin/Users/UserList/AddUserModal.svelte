@@ -2,9 +2,9 @@
 	import { toast } from 'svelte-sonner';
 	import { createEventDispatcher } from 'svelte';
 	import { onMount, getContext } from 'svelte';
-	import { addUser } from '$lib/apis/auths';
+        import { addUser } from '$lib/apis/auths';
 
-	import { WEBUI_BASE_URL } from '$lib/constants';
+        import { ROLE_OPTIONS, ROLE_VALUES, WEBUI_BASE_URL } from '$lib/constants';
 
 	import Spinner from '$lib/components/common/Spinner.svelte';
 	import Modal from '$lib/components/common/Modal.svelte';
@@ -20,8 +20,6 @@
 	let loading = false;
 	let tab = '';
 	let inputFiles;
-
-        const ROLE_OPTIONS = ['pending', 'user', 'group_owner', 'admin'];
 
         let _user = {
                 name: '',
@@ -81,16 +79,10 @@
 						console.debug(idx, columns);
 
 						if (idx > 0) {
-                                                        if (
-                                                                columns.length === 4 &&
-                                                                ROLE_OPTIONS.includes(columns[3].toLowerCase())
-                                                        ) {
-							if (
-                                columns.length === 4 &&
-                                ['admin', 'user', 'group_owner', 'pending'].includes(
-                                        columns[3].toLowerCase()
-                                )
-							) {
+                                                          if (
+                                                                  columns.length === 4 &&
+                                                                  ROLE_VALUES.includes(columns[3].toLowerCase())
+                                                          ) {
 								const res = await addUser(
 									localStorage.token,
 									columns[0],
@@ -183,31 +175,21 @@
 
 					<div class="px-1">
 						{#if tab === ''}
-							<div class="flex flex-col w-full mb-3">
-								<div class=" mb-1 text-xs text-gray-500">{$i18n.t('Role')}</div>
+                                                        <div class="flex flex-col w-full mb-3">
+                                                                <div class=" mb-1 text-xs text-gray-500">{$i18n.t('Role')}</div>
 
-								<div class="flex-1">
+                                                                <div class="flex-1">
                                                                         <select
                                                                                 class="w-full capitalize rounded-lg text-sm bg-transparent dark:disabled:text-gray-500 outline-hidden"
                                                                                 bind:value={_user.role}
                                                                                 placeholder={$i18n.t('Enter Your Role')}
                                                                                 required
                                                                         >
-                                                                                {#each ROLE_OPTIONS as roleOption}
-                                                                                        <option value={roleOption}>
-                                                                                                {$i18n.t(roleOption)}
+                                                                                {#each ROLE_OPTIONS as { value, labelKey }}
+                                                                                        <option value={value}>
+                                                                                                {$i18n.t(labelKey)}
                                                                                         </option>
                                                                                 {/each}
-									<select
-										class="w-full capitalize rounded-lg text-sm bg-transparent dark:disabled:text-gray-500 outline-hidden"
-										bind:value={_user.role}
-										placeholder={$i18n.t('Enter Your Role')}
-										required
-									>
-                                                                                <option value="pending"> {$i18n.t('pending')} </option>
-                                                                                <option value="user"> {$i18n.t('user')} </option>
-                                                                                <option value="group_owner"> {$i18n.t('group_owner')} </option>
-                                                                                <option value="admin"> {$i18n.t('admin')} </option>
                                                                         </select>
                                                                 </div>
                                                         </div>

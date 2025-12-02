@@ -770,6 +770,10 @@ async def add_user(form_data: AddUserForm, user=Depends(get_admin_user)):
     if Users.get_user_by_email(form_data.email.lower()):
         raise HTTPException(400, detail=ERROR_MESSAGES.EMAIL_TAKEN)
 
+    role = (form_data.role or "pending").lower()
+    if role not in ["pending", "user", "group_owner", "admin"]:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, detail=ERROR_MESSAGES.INVALID_ROLE)
+
     try:
         hashed = get_password_hash(form_data.password)
         user = Auths.insert_new_auth(
@@ -777,7 +781,7 @@ async def add_user(form_data: AddUserForm, user=Depends(get_admin_user)):
             hashed,
             form_data.name,
             form_data.profile_image_url,
-            form_data.role,
+            role,
         )
 
         if user:
