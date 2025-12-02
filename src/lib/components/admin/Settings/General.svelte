@@ -13,7 +13,7 @@
 	import SensitiveInput from '$lib/components/common/SensitiveInput.svelte';
 	import Switch from '$lib/components/common/Switch.svelte';
 	import Tooltip from '$lib/components/common/Tooltip.svelte';
-	import { WEBUI_BUILD_HASH, WEBUI_VERSION } from '$lib/constants';
+        import { ROLE_OPTIONS, WEBUI_BUILD_HASH, WEBUI_VERSION } from '$lib/constants';
 	import { config, showChangelog } from '$lib/stores';
 	import { compareVersion } from '$lib/utils';
 	import { onMount, getContext } from 'svelte';
@@ -287,15 +287,14 @@
 					<div class="  mb-2.5 flex w-full justify-between">
 						<div class=" self-center text-xs font-medium">{$i18n.t('Default User Role')}</div>
 						<div class="flex items-center relative">
-							<select
-								class="dark:bg-gray-900 w-fit pr-8 rounded-sm px-2 text-xs bg-transparent outline-hidden text-right"
-								bind:value={adminConfig.DEFAULT_USER_ROLE}
-								placeholder={$i18n.t('Select a role')}
-							>
-                                                                <option value="pending">{$i18n.t('pending')}</option>
-                                                                <option value="user">{$i18n.t('user')}</option>
-                                                                <option value="group_owner">{$i18n.t('group_owner')}</option>
-                                                                <option value="admin">{$i18n.t('admin')}</option>
+                                                        <select
+                                                                class="dark:bg-gray-900 w-fit pr-8 rounded-sm px-2 text-xs bg-transparent outline-hidden text-right"
+                                                                bind:value={adminConfig.DEFAULT_USER_ROLE}
+                                                                placeholder={$i18n.t('Select a role')}
+                                                        >
+                                                                {#each ROLE_OPTIONS as { value, labelKey }}
+                                                                        <option value={value}>{$i18n.t(labelKey)}</option>
+                                                                {/each}
                                                        </select>
                                                </div>
                                        </div>

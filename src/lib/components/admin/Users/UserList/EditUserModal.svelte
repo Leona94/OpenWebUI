@@ -6,7 +6,8 @@
 
 	import { goto } from '$app/navigation';
 
-	import { updateUserById, getUserGroupsById } from '$lib/apis/users';
+        import { updateUserById, getUserGroupsById } from '$lib/apis/users';
+        import { ROLE_OPTIONS } from '$lib/constants';
 
 	import Modal from '$lib/components/common/Modal.svelte';
 	import localizedFormat from 'dayjs/plugin/localizedFormat';
@@ -137,19 +138,20 @@
 										<div class=" mb-1 text-xs text-gray-500">{$i18n.t('Role')}</div>
 
 										<div class="flex-1">
-											<select
-												class="w-full dark:bg-gray-900 text-sm bg-transparent disabled:text-gray-500 dark:disabled:text-gray-500 outline-hidden"
-												bind:value={_user.role}
-												disabled={_user.id == sessionUser.id}
-												required
-											>
-                                                                                                <option value="admin">{$i18n.t('Admin')}</option>
-                                                                                                <option value="user">{$i18n.t('User')}</option>
-                                                                                                <option value="group_owner">{$i18n.t('group_owner')}</option>
-                                                                                                <option value="pending">{$i18n.t('Pending')}</option>
-                                                                                       </select>
+                                                                                                <select
+                                                                                                        class="w-full dark:bg-gray-900 text-sm bg-transparent disabled:text-gray-500 dark:disabled:text-gray-500 outline-hidden"
+                                                                                                        bind:value={_user.role}
+                                                                                                        disabled={_user.id == sessionUser.id}
+                                                                                                        required
+                                                                                                >
+                                                                                                        {#each ROLE_OPTIONS as { value, labelKey }}
+                                                                                                                <option value={value}>
+                                                                                                                        {$i18n.t(labelKey)}
+                                                                                                                </option>
+                                                                                                        {/each}
+                                                                                                </select>
+                                                                                        </div>
                                                                                </div>
-                                                                       </div>
 
 									<div class="flex flex-col w-full">
 										<div class=" mb-1 text-xs text-gray-500">{$i18n.t('Name')}</div>
