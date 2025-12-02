@@ -21,12 +21,14 @@
 	let tab = '';
 	let inputFiles;
 
-	let _user = {
-		name: '',
-		email: '',
-		password: '',
-		role: 'user'
-	};
+        const ROLE_OPTIONS = ['pending', 'user', 'group_owner', 'admin'];
+
+        let _user = {
+                name: '',
+                email: '',
+                password: '',
+                role: 'user'
+        };
 
 	$: if (show) {
 		_user = {
@@ -43,8 +45,8 @@
 			loading = false;
 		};
 
-		if (tab === '') {
-			loading = true;
+                if (tab === '') {
+                        loading = true;
 
 			const res = await addUser(
 				localStorage.token,
@@ -79,10 +81,10 @@
 						console.debug(idx, columns);
 
 						if (idx > 0) {
-							if (
-								columns.length === 4 &&
-								['admin', 'user', 'pending'].includes(columns[3].toLowerCase())
-							) {
+                                                        if (
+                                                                columns.length === 4 &&
+                                                                ROLE_OPTIONS.includes(columns[3].toLowerCase())
+                                                        ) {
 								const res = await addUser(
 									localStorage.token,
 									columns[0],
@@ -179,18 +181,20 @@
 								<div class=" mb-1 text-xs text-gray-500">{$i18n.t('Role')}</div>
 
 								<div class="flex-1">
-									<select
-										class="w-full capitalize rounded-lg text-sm bg-transparent dark:disabled:text-gray-500 outline-hidden"
-										bind:value={_user.role}
-										placeholder={$i18n.t('Enter Your Role')}
-										required
-									>
-										<option value="pending"> {$i18n.t('pending')} </option>
-										<option value="user"> {$i18n.t('user')} </option>
-										<option value="admin"> {$i18n.t('admin')} </option>
-									</select>
-								</div>
-							</div>
+                                                                        <select
+                                                                                class="w-full capitalize rounded-lg text-sm bg-transparent dark:disabled:text-gray-500 outline-hidden"
+                                                                                bind:value={_user.role}
+                                                                                placeholder={$i18n.t('Enter Your Role')}
+                                                                                required
+                                                                        >
+                                                                                {#each ROLE_OPTIONS as roleOption}
+                                                                                        <option value={roleOption}>
+                                                                                                {$i18n.t(roleOption)}
+                                                                                        </option>
+                                                                                {/each}
+                                                                        </select>
+                                                                </div>
+                                                        </div>
 
 							<div class="flex flex-col w-full mt-1">
 								<div class=" mb-1 text-xs text-gray-500">{$i18n.t('Name')}</div>
